@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Obtiene el mensaje de commit del archivo temporal
+COMMIT_MSG_FILE=$1
+
+# Verifica que el archivo existe
+if [[ -z "$COMMIT_MSG_FILE" || ! -f "$COMMIT_MSG_FILE" ]]; then
+  echo "Error: No se encontró el archivo de mensaje de commit."
+  exit 1
+fi
+
+# Lee el contenido del archivo
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Expresión regular para validar Conventional Commits
+REGEX="^(feat|fix|docs|style|refactor|test|chore|perf|build|ci|revert)(\(.+\))?: .+$"
+
+# Validación del mensaje
+if ! [[ $COMMIT_MSG =~ $REGEX ]]; then
+  echo "❌ Error: El mensaje de commit no sigue el formato de Conventional Commits."
+  echo "Ejemplo válido: feat(scope): descripción del cambio"
+  echo "Tipos permitidos: feat, fix, docs, style, refactor, test, chore, perf, build, ci, revert"
+  exit 1
+fi
+
+exit 0
