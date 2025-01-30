@@ -18,3 +18,8 @@ def create_configuration(configRequest: ConfigRequest,db: Session = Depends(get_
     db.refresh(newconfig)
     configs = db.query(Config).all()
     return configs
+
+@router.get("/")
+def get_configurations(db: Session = Depends(get_db), token: str = Depends(JWTManager.verify_token)):
+    configs = db.query(Config).all()        
+    return configs
