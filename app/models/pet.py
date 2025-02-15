@@ -10,9 +10,10 @@ class Pet(Base):
     breed_id = Column(Integer,ForeignKey('breed.id'), nullable=False)
     description = Column(Text)
     available = Column(Boolean, default=True)
+    filename = Column(String(255), nullable=True)
+    path = Column(String(255), nullable=True)
     animal_type_id = Column(Integer, ForeignKey('animal_type.id'), nullable=False)
     tags = relationship('Tag', secondary='pet_tags')
-    adoption_evaluation = relationship("AdoptionEvaluation", back_populates="pet", uselist=False)
     adoption = relationship("Adoption", back_populates="pet", uselist=False)  # Asegúrate de que esto sea una relación uno a uno
     animal_type = relationship("AnimalType", back_populates="pets")
     breed = relationship("Breed", back_populates="pets")
@@ -37,6 +38,7 @@ class Tag(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(40), index=True)
+    color = Column(String(40))
 
 class PetTag(Base):
     __tablename__ = 'pet_tags'
@@ -44,16 +46,3 @@ class PetTag(Base):
     pet_id = Column(Integer, ForeignKey('pets.id'), primary_key=True)
     tag_id = Column(Integer, ForeignKey('tags.id'), primary_key=True)
     
-class AdoptionEvaluation(Base):
-    __tablename__ = 'adoption_evaluations'
-    
-    id = Column(Integer, primary_key=True, index=True)
-    pet_id = Column(Integer, ForeignKey('pets.id'))
-    behavior = Column(Text)  # Descripción general del comportamiento
-    energy_level = Column(String(100))  # Nivel de energía: Baja, Media, Alta
-    good_with_children = Column(Boolean, default=False)  # Si el perro es bueno con niños
-    good_with_other_pets = Column(Boolean, default=False)  # Si el perro es bueno con otros animales
-    special_needs = Column(String(100), nullable=True)  # Necesidades especiales, si las hay
-    temperament = Column(String(100))  # Descripción del temperamento (amistoso, reservado, agresivo)
-    
-    pet = relationship("Pet", back_populates="adoption_evaluation")

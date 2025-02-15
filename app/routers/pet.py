@@ -1,23 +1,49 @@
-from fastapi import APIRouter, Depends, HTTPException
+import os
+import shutil
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from sqlalchemy.orm import Session
 from typing import List
 from app.database import get_db
-from app.models.pet import Pet, PetTag, Tag, AdoptionEvaluation
+from app.models.pet import Pet, PetTag, Tag
 from app.models.user import User
 from app.schemas.pet import PetCreate, PetBase, PetWithTags, AdoptionEvaluationResponse, AdoptionEvaluationBase
 from app.utils.jwt import JWTManager
+from app.config import settings
 
 router = APIRouter(prefix="/pets", tags=["Pets"])
 
+@router.post("/save_img/{pet_id}")
+def save_image(pet_id: int, file: UploadFile = File(...), db: Session = Depends(get_db), token: str = Depends(JWTManager.verify_token)):
+    if file.content_type not in ["image/jpeg", "image/png"]:
+        raise HTTPException(status_code=400, detail="Formato no permitido")
+    if not os.path.exists(settings.UPLOAD_DIR):
+        os.makedirs(settings.UPLOAD_DIR)
+    
+    newname = "pet-{}-image.{}".format(pet_id, file.content_type.split("/")[-1]) 
+    file_path = os.path.join(settings.UPLOAD_DIR, newname)
+    print(file.filename)
+    
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    pet = db.query(Pet).filter(Pet.id == pet_id).first()
+    pet.filename = file.filename
+    pet.path = file_path
+    db.commit()
+    db.refresh(pet)
+    return {"message": "Update image of Pet"}
+
 @router.post("/", response_model=PetBase)
 def create_pet(pet: PetCreate, db: Session = Depends(get_db), token: str = Depends(JWTManager.verify_token)):
+    
+        
     new_pet = Pet(
         name=pet.name,
         age=pet.age,
         breed_id=pet.breed_id,
         animal_type_id=pet.animal_type_id,
         description=pet.description,
-        available=pet.available
+        available=pet.available,
     )
     db.add(new_pet)
     db.commit()
