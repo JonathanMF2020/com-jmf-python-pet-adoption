@@ -13,7 +13,7 @@ class PetWithTags(BaseModel):
     tags: List[TagSchema]  # Lista de etiquetas asociadas al perrito
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class AdoptionEvaluationBase(BaseModel):
     behavior: str
@@ -29,7 +29,7 @@ class AdoptionEvaluationResponse(AdoptionEvaluationBase):
     pet_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class PetCreate(BaseModel):
     name: str
@@ -53,6 +53,6 @@ class PetBase(BaseModel):
     adoption_evaluation: Optional[AdoptionEvaluationBase] = None 
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 
         

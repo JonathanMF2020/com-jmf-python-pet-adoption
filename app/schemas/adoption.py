@@ -19,7 +19,7 @@ class ReactionResponse(BaseModel):
     name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
     
 class AdoptionCommentBaseSchema(BaseModel):
     id: int
@@ -28,7 +28,7 @@ class AdoptionCommentBaseSchema(BaseModel):
     reactions: List[ReactionResponse]  
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class AdoptionGet(BaseModel):
@@ -40,7 +40,7 @@ class AdoptionGet(BaseModel):
     description: str
     
     class Config:
-        orm_mode = True
+        from_attributes = True
         
     
 class AdoptationEnd(BaseModel):
@@ -74,4 +74,4 @@ class AdoptionResponse(BaseModel):
     description: Optional[str] = None
     
     class Config:
-        orm_mode = True
+        from_attributes = True

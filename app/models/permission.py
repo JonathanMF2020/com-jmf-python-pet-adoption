@@ -9,7 +9,7 @@ class Permission(Base):
     name = Column(String(100), nullable=False)
     description = Column(Text, nullable=False)
     available = Column(Boolean, default=True)
-    users = relationship("User", secondary="profiles_permissions")
+    users = relationship("User", secondary="profiles_permissions", back_populates="permissions")
 
     
 class ProfilePermissions(Base):

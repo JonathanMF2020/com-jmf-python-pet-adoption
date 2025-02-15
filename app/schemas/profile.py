@@ -19,7 +19,7 @@ class ProfileRequestBase(BaseModel):
     permissions: List[PermissionsBase]
     
     class Config:
-        orm_mode = True
+        from_attributes = True
     
 
     

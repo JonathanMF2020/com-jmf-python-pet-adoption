@@ -11,7 +11,7 @@ class User(Base):
     hashed_password = Column(String(100))
     is_admin = Column(Boolean, default=False)
     tags = relationship('Tag', secondary='users_tag')
-    permissions = relationship("Permission", secondary="profiles_permissions")
+    permissions = relationship("Permission", secondary="profiles_permissions", back_populates="users")
     logs = relationship("Log", back_populates="user")
 
 class UserTag(Base):
