@@ -28,7 +28,7 @@ def save_image(pet_id: int, file: UploadFile = File(...), db: Session = Depends(
         shutil.copyfileobj(file.file, buffer)
         
     pet = db.query(Pet).filter(Pet.id == pet_id).first()
-    pet.filename = file.filename
+    pet.filename = newname
     pet.path = file_path
     db.commit()
     db.refresh(pet)
