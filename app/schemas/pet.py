@@ -46,6 +46,8 @@ class PetBase(BaseModel):
     breed_id: int
     animal_type_id: int
     description: Optional[str] = None
+    filename: Optional[str] = None
+    path: Optional[str] = None
     available: bool = True
     tags: List[TagSchema]
     adoption_evaluation: Optional[AdoptionEvaluationBase] = None 

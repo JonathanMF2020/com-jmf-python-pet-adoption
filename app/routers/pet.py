@@ -20,7 +20,8 @@ def save_image(pet_id: int, file: UploadFile = File(...), db: Session = Depends(
         os.makedirs(settings.UPLOAD_DIR)
     
     newname = "pet-{}-image.{}".format(pet_id, file.content_type.split("/")[-1]) 
-    file_path = os.path.join(settings.UPLOAD_DIR, newname)
+    file_path = "{}/{}".format(settings.UPLOAD_DIR,newname)
+    
     print(file.filename)
     
     with open(file_path, "wb") as buffer:
