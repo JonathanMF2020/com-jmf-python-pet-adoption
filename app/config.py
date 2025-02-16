@@ -1,3 +1,4 @@
+import os
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
@@ -8,6 +9,6 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     class Config:
-        env_file = ".env"
+        env_file = ".env.local" if os.getenv("ENV") != "docker" else ".env.docker"  # Selecciona el archivo según el entorno
 
 settings = Settings()

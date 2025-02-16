@@ -20,6 +20,19 @@
             ],
             
             "jinja": true
+        },
+        {
+            "name": "Levantar Docker: docker-compose up --build",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "docker-compose up --build"
+        },
+        {
+            "name": "Levantar Docker: docker-compose up sin build",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "docker-compose up"
         }
+        
     ]
 }

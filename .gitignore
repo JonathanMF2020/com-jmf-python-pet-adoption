@@ -1,3 +1,4 @@
-.env
 __pycache__
 env/Lib
+.env.docker
+.env.local

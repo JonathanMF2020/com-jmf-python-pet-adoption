@@ -52,6 +52,23 @@ Sigue los siguientes pasos para instalar y ejecutar el proyecto localmente.
 
     Esto iniciará el servidor de desarrollo. Puedes acceder a la API en `http://localhost:8000`.
 
+    Tambien es posible ejecutarlo con docker usando el comando
+
+    ```bash
+    docker-compose up --build
+    docker-compose up -d
+
+    ```
+
+    Para parar la instancia usa
+
+    ```bash
+    docker-compose down
+
+    ```
+
+    
+
 ## Contribuir
 
 ¡Tu ayuda es bienvenida! Si deseas contribuir al proyecto, por favor sigue estos pasos:
