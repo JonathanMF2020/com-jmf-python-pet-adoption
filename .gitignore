@@ -3,3 +3,4 @@ env/Lib
 .env.docker
 .env.local
 build/
+PetAdoption.egg-info/
