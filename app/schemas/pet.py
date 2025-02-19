@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from typing import Optional, List
 
+from app.models.pet import AnimalType, Breed
+
 class TagSchema(BaseModel):
     id: int
     name: str
@@ -39,6 +41,14 @@ class PetCreate(BaseModel):
     description: Optional[str] = None
     available: bool = True
     
+class AnimalTypeBase(BaseModel):
+    id: int
+    name: str
+    
+class BreedBase(BaseModel):
+    id: int
+    name: str
+    
 class PetBase(BaseModel):
     id: int
     name: str
@@ -50,6 +60,8 @@ class PetBase(BaseModel):
     path: Optional[str] = None
     available: bool = True
     tags: List[TagSchema]
+    animal_type: Optional[AnimalTypeBase] = None 
+    breed: Optional[BreedBase] = None 
     adoption_evaluation: Optional[AdoptionEvaluationBase] = None 
     
     class Config:
