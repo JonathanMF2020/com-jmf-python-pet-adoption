@@ -6,6 +6,7 @@ from app.models.pet import AnimalType, Breed
 class TagSchema(BaseModel):
     id: int
     name: str
+    color:str
     
 class PetWithTags(BaseModel):
     id: int
