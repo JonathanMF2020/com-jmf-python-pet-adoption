@@ -36,8 +36,6 @@ def save_image(pet_id: int, file: UploadFile = File(...), db: Session = Depends(
 
 @router.post("/", response_model=PetBase)
 def create_pet(pet: PetCreate, db: Session = Depends(get_db), token: str = Depends(JWTManager.verify_token)):
-    
-        
     new_pet = Pet(
         name=pet.name,
         age=pet.age,
@@ -53,7 +51,6 @@ def create_pet(pet: PetCreate, db: Session = Depends(get_db), token: str = Depen
 
 @router.get("/", response_model=List[PetBase])
 def get_all_pets(db: Session = Depends(get_db), token: str = Depends(JWTManager.verify_token)):
-    # Obtenemos todos los perritos con sus etiquetas asociadas
     pets = db.query(Pet).all()        
     return pets
 
@@ -122,15 +119,3 @@ def get_pets_by_tag(tag_id: int, db: Session = Depends(get_db), token: str = Dep
     
     pets = db.query(Pet).join(PetTag).filter(PetTag.tag_id == tag_id).all()
     return pets
-
-@router.post("/pets/{pet_id}/evaluation", response_model=AdoptionEvaluationResponse)
-def create_adoption_evaluation(pet_id: int, evaluation: AdoptionEvaluationBase, db: Session = Depends(get_db), token: str = Depends(JWTManager.verify_token)):
-    pet = db.query(Pet).filter(Pet.id == pet_id).first()
-    if not pet:
-        raise HTTPException(status_code=404, detail="Pet not found")
-    
-    evaluation_data = AdoptionEvaluation(**evaluation.dict(), pet_id=pet.id)
-    db.add(evaluation_data)
-    db.commit()
-    db.refresh(evaluation_data)
-    return evaluation_data

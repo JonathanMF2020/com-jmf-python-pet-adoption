@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from app.database import Base, engine
-from app.routers import auth, pet, adoption, profile, config, log
+from app.routers import auth, pet, adoption, profile, config, log, animal_type
 from app.config import settings
 
 app = FastAPI()
@@ -16,5 +16,6 @@ app.include_router(adoption.router)
 app.include_router(profile.router)
 app.include_router(config.router)
 app.include_router(log.router)
+app.include_router(animal_type.router)
 
 app.mount("/uploads", StaticFiles(directory=settings.UPLOAD_DIR), name="uploads")

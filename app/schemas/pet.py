@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Optional, List
 
 from app.models.pet import AnimalType, Breed
+from app.schemas.animal_type import AnimalTypeBase
 
 class TagSchema(BaseModel):
     id: int
@@ -42,9 +43,6 @@ class PetCreate(BaseModel):
     description: Optional[str] = None
     available: bool = True
     
-class AnimalTypeBase(BaseModel):
-    id: int
-    name: str
     
 class BreedBase(BaseModel):
     id: int
