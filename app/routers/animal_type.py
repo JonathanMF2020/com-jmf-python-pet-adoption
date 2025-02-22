@@ -1,5 +1,6 @@
 import os
 import shutil
+from typing import List
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from sqlalchemy.orm import Session
 
@@ -22,8 +23,8 @@ def create_animal_type(pet: AnimalTypeCreate, db: Session = Depends(get_db), tok
     db.refresh(new_animal_type)
     return new_animal_type
 
-@router.get("/", response_model=AnimalTypeBase)
-def create_animal_type(db: Session = Depends(get_db), token: str = Depends(JWTManager.verify_token)):
+@router.get("/", response_model=List[AnimalTypeBase])
+def get_animal_type(db: Session = Depends(get_db), token: str = Depends(JWTManager.verify_token)):
     animal_type = db.query(AnimalType).all()  
     return animal_type
 
