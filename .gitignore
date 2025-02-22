@@ -4,3 +4,4 @@ env/Lib
 .env.local
 build/
 PetAdoption.egg-info/
+uploads/

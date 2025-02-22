@@ -18,4 +18,4 @@ app.include_router(config.router)
 app.include_router(log.router)
 app.include_router(animal_type.router)
 
-app.mount("/uploads", StaticFiles(directory=settings.UPLOAD_DIR), name="uploads")
+app.mount("/uploads", StaticFiles(directory=settings.UPLOAD_DIR_REAL), name="uploads")
