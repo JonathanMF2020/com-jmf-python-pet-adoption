@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, Text, ForeignKey, Float
 from sqlalchemy.orm import relationship
 from app.database import Base
 from app.models.animal_type import AnimalType
@@ -15,6 +15,8 @@ class Pet(Base):
     available = Column(Boolean, default=True)
     filename = Column(String(255), nullable=True)
     path = Column(String(255), nullable=True)
+    gender = Column(Integer, default=1)
+    weight = Column(Float, default=15.2)
     animal_type_id = Column(Integer, ForeignKey('animal_type.id'), nullable=False)
     tags = relationship('Tag', secondary='pet_tags')
     adoption = relationship("Adoption", back_populates="pet", uselist=False)  # Asegúrate de que esto sea una relación uno a uno

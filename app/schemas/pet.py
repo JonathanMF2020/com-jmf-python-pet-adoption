@@ -42,6 +42,8 @@ class PetCreate(BaseModel):
     animal_type_id: int
     description: Optional[str] = None
     available: bool = True
+    gender: int
+    weight: float
     
     
 class BreedBase(BaseModel):
@@ -58,6 +60,8 @@ class PetBase(BaseModel):
     filename: Optional[str] = None
     path: Optional[str] = None
     available: bool = True
+    gender: int
+    weight: float
     tags: List[TagSchema]
     animal_type: Optional[AnimalTypeBase] = None 
     breed: Optional[BreedBase] = None 

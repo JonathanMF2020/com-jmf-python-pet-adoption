@@ -43,6 +43,8 @@ def create_pet(pet: PetCreate, db: Session = Depends(get_db), token: str = Depen
         animal_type_id=pet.animal_type_id,
         description=pet.description,
         available=pet.available,
+        gender=pet.gender,
+        weight=pet.weight
     )
     db.add(new_pet)
     db.commit()
